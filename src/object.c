@@ -114,7 +114,8 @@ char *json_object_stringify(t_json_object *object)
     char **arr = NULL;
     int size = 0;
     int arr_size = json_object_size(object);
-    arr = malloc(sizeof(char *) * (arr_size + 1));
+    
+    arr = malloc(sizeof(char *) * arr_size);
     if (arr == NULL)
         return (NULL);
     for (int i = 0; i < arr_size; ++i)
@@ -122,35 +123,27 @@ char *json_object_stringify(t_json_object *object)
         arr[i] = json_object_stringify_key_value(object);
         if (arr[i] == NULL)
         {
-            for (int j = 0; j < i; ++j)
-                free(arr[j]);
-            free(arr);
+            string_array_free(arr, i);
             return (NULL);
         }
         size += strlen(arr[i]) + 2;
         object = object->next;
     }
-    text = malloc(sizeof(char) * (size + 1));
-    if (text == NULL)
+    text = malloc(size + 1);
+    if (text != NULL)
     {
-        for (int i = 0; i < arr_size; ++i)
-            free(arr[i]);
-        free(arr);
-        return (NULL);
-    }
     strcpy(text, "{");
-    for (int i = 0; i < arr_size - 1; ++i)
+        if (arr_size > 0)
     {
+            strcat(text, arr[0]);
+            for (int i = 1; i < arr_size; ++i)
+            {
+                strcat(text, ", ");
         strcat(text, arr[i]);
-        strcat(text, ", ");
-        free(arr[i]);
     }
-    if (arr_size > 0)
-    {
-        strcat(text, arr[arr_size - 1]);
-        free(arr[arr_size - 1]);
     }
-    free(arr);
     strcat(text, "}");
+    }
+    string_array_free(arr, arr_size);
     return (text);
 }

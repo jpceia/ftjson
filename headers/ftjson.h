@@ -94,4 +94,9 @@ char *json_boolean_stringify(int boolean);
 t_json json_from_null(void);
 char *json_null_stringify(void);
 
+// -----------------------------------------------------------------------------
+// Utility Functions
+// -----------------------------------------------------------------------------
+void string_array_free(char **array, int size);
+
 #endif
