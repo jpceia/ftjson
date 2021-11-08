@@ -77,6 +77,7 @@ char *json_array_stringify(t_json_array *array);
 
 t_json json_from_string(char *string);
 char *json_string_stringify(char *string);
+char *json_string_parse(char **str);
 
 // -----------------------------------------------------------------------------
 // JSON Value Functions
@@ -85,6 +86,7 @@ char *json_string_stringify(char *string);
 // Number
 t_json json_from_number(double number);
 char *json_number_stringify(double number);
+double json_number_parse(char **string);
 
 // Boolean
 t_json json_from_boolean(int boolean);

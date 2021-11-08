@@ -1,4 +1,3 @@
-
 #include "ftjson.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,6 +24,21 @@ char *json_number_stringify(double number)
         return NULL;
     sprintf(str, "%g", number);
     return str;
+}
+
+double json_number_parse(char **str)
+{
+    double number;
+    char *endptr;
+    
+    number = strtod(*str, &endptr);
+    if (endptr == *str)
+    {
+        *str = NULL;
+        return 0;
+    }
+    *str = endptr;
+    return number;
 }
 
 // ---------------------------------------------------------------------------
