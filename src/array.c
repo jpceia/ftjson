@@ -1,4 +1,3 @@
-
 #include "ftjson.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -66,7 +65,7 @@ t_json_array *json_array_pushback(t_json_array **array, t_json value)
             node = node->next;
         node->next = new;
     }
-    return (*array);
+    return (new);
 }
 
 // pushfront json array
@@ -78,7 +77,7 @@ t_json_array *json_array_pushfront(t_json_array **array, t_json value)
         return (NULL);
     new->next = *array;
     *array = new;
-    return (*array);
+    return (new);
 }
 
 // Converts a json array to a string

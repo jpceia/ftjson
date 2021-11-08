@@ -1,6 +1,3 @@
-
-
-
 #include "ftjson.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -69,7 +66,7 @@ t_json_object *json_object_pushback(t_json_object **object, char *key, t_json va
             node = node->next;
         node->next = new;
     }
-    return (*object);
+    return (new);
 }
 
 // pushfront json object
@@ -81,30 +78,30 @@ t_json_object *json_object_pushfront(t_json_object **object, char *key, t_json v
         return (NULL);
     new->next = *object;
     *object = new;
-    return (*object);
+    return (new);
 }
 
 // Converts a key value pair to a string
 static char *json_object_stringify_key_value(t_json_object* object)
 {
-    char *str = NULL;
+    char *text = NULL;
     char *key = object->key;
     char *value_str = json_stringify(object->value);
 
     if (value_str == NULL)
         return (NULL);
-    str = malloc(strlen(key) + strlen(value_str) + 5);
-    if (str == NULL)
+    text = malloc(strlen(key) + strlen(value_str) + 5);
+    if (text == NULL)
     {
         free(value_str);
         return (NULL);
     }
-    strcpy(str, "\"");
-    strcat(str, key);
-    strcat(str, "\": ");
-    strcat(str, value_str);
+    strcpy(text, "\"");
+    strcat(text, key);
+    strcat(text, "\": ");
+    strcat(text, value_str);
     free(value_str);
-    return (str);
+    return (text);
 }
 
 // Converts a t_json_object to a string
