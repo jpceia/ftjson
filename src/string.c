@@ -95,6 +95,8 @@ char *json_string_parse(char **str)
     if (**str != '"')
         return NULL;
     text = malloc(size + 1);
+    if (text == NULL)
+        return NULL;
     ++*str;
     while (**str != '"' && **str != '\0')
     {
