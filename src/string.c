@@ -37,6 +37,55 @@ void hex_to_utf8(char *hex, char *utf8)
 }
 
 // Parse a Json string from a string
+
+char json_control_character_parse(char **str)
+{
+    char c;
+
+    switch (**str)
+    {
+    case '"':
+        c = '"';
+        break;
+    case '\\':
+        c = '\\';
+        break;
+    case '/':
+        c = '/';
+        break;
+    case 'b':
+        c = '\b';
+        break;
+    case 'f':
+        c = '\f';
+        break;
+    case 'n':
+        c = '\n';
+        break;
+    case 'r':
+        c = '\r';
+        break;
+    case 't':
+        c = '\t';
+        break;
+    case 'u':
+        ++*str;
+        hex_to_utf8(*str, &c);
+        *str += 3;
+        break;
+    default:
+        perror("Invalid escape sequence");
+        return 0; // Invalid escape sequence
+    }
+    ++*str;
+    return c;
+}
+
+int is_control_character(char c)
+{
+    return c == '\n' || c == '\r' || c == '\t' || c == '\b' || c == '\f';
+}
+
 char *json_string_parse(char **str)
 {
     char *text = NULL;
@@ -49,9 +98,9 @@ char *json_string_parse(char **str)
     ++*str;
     while (**str != '"' && **str != '\0')
     {
-        if (**str == '\n' || **str == '\r' || **str == '\t' || **str == '\b' || **str == '\f')
+        if (is_control_character(**str))
         {
-            perror("Control character in string");
+            fprintf(stderr, "Control character in string");
             free(text);
             return NULL;
         }
@@ -60,7 +109,7 @@ char *json_string_parse(char **str)
             size *= 2;
             if (realloc(text, size + 1) == NULL)
             {
-                perror("Realloc failed");
+                perror(__FUNCTION__);
                 free(text);
                 return NULL;
             }
@@ -68,41 +117,7 @@ char *json_string_parse(char **str)
         if (**str == '\\')
         {
             ++*str;
-            switch (**str)
-            {
-            case '"':
-                text[i++] = '"';
-                break;
-            case '\\':
-                text[i++] = '\\';
-                break;
-            case '/':
-                text[i++] = '/';
-                break;
-            case 'b':
-                text[i++] = '\b';
-                break;
-            case 'f':
-                text[i++] = '\f';
-                break;
-            case 'n':
-                text[i++] = '\n';
-                break;
-            case 'r':
-                text[i++] = '\r';
-                break;
-            case 't':
-                text[i++] = '\t';
-                break;
-            case 'u':
-                ++*str;
-                hex_to_utf8(*str, &text[i++]);
-                *str += 3;
-                break;
-            default:
-                perror("Invalid escape sequence");
-                return NULL; // Invalid escape sequence
-            }
+            text[i++] = json_control_character_parse(str);
         }
         else
             text[i++] = **str;
@@ -110,7 +125,7 @@ char *json_string_parse(char **str)
     }
     if (**str != '"')
     {
-        perror("Unterminated string");
+        fprintf(stderr, "Unterminated string");
         free(text);
         return NULL;
     }
@@ -118,7 +133,7 @@ char *json_string_parse(char **str)
     {
         if (realloc(text, i + 1) == NULL)
         {
-            perror("Realloc failed");
+            perror(__FUNCTION__);
             free(text);
             return NULL;
         }
