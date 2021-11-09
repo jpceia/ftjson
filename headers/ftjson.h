@@ -91,10 +91,12 @@ double json_number_parse(char **string);
 // Boolean
 t_json json_from_boolean(int boolean);
 char *json_boolean_stringify(int boolean);
+int json_boolean_parse(char **string);
 
 /// Null
 t_json json_from_null(void);
 char *json_null_stringify(void);
+void json_null_parse(char **str);
 
 // -----------------------------------------------------------------------------
 // Utility Functions

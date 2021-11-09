@@ -67,6 +67,23 @@ char *json_boolean_stringify(int boolean)
     return str;
 }
 
+// Parses a JSON boolean from a string.
+int json_boolean_parse(char **str)
+{
+    if (strncmp(*str, "true", 4))
+    {
+        *str += 4;
+        return 1;
+    }
+    else if (strncmp(*str, "false", 5))
+    {
+        *str += 5;
+        return 0;
+    }
+    *str = NULL;
+    return -1;
+}
+
 // ---------------------------------------------------------------------------
 // NULL
 // ---------------------------------------------------------------------------
@@ -87,4 +104,16 @@ char *json_null_stringify(void)
         return NULL;
     strcpy(str, "null");
     return str;
+}
+
+void json_null_parse(char **str)
+{
+    char *null_str = "null";
+
+    if (strncmp(*str, null_str, 4) != 0)
+    {
+        perror("Invalid name");
+        *str = NULL;
+    }
+    *str += 4;
 }
