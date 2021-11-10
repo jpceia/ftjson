@@ -106,13 +106,13 @@ char *json_string_parse(char **str)
             free(text);
             return NULL;
         }
-        if (i + 1 >= size)
+        if (i > size)
         {
             size *= 2;
-            if (realloc(text, size + 1) == NULL)
+            text = realloc(text, size + 1);
+            if (text == NULL)
             {
                 perror(__FUNCTION__);
-                free(text);
                 return NULL;
             }
         }
@@ -133,10 +133,11 @@ char *json_string_parse(char **str)
     }
     if (i < size)
     {
-        if (realloc(text, i + 1) == NULL)
+        size = i;
+        text = realloc_free_on_fail(text, size + 1);
+        if (text == NULL)
         {
             perror(__FUNCTION__);
-            free(text);
             return NULL;
         }
     }

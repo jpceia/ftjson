@@ -103,5 +103,6 @@ void json_null_parse(char **str);
 // -----------------------------------------------------------------------------
 void string_array_free(char **array, int size);
 void json_move_whitespace(char **str);
+void *realloc_free_on_fail(void *ptr, size_t size);
 
 #endif
