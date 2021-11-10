@@ -1,13 +1,16 @@
 #ifndef FTJSON_H
 # define FTJSON_H
 
+# include <stddef.h>
+
 typedef struct s_json           t_json;
 typedef struct s_json_object    t_json_object;
 typedef struct s_json_array     t_json_array;
 
 typedef enum e_value_type
 {
-    JSON_OBJECT = 0,
+    JSON_ERROR = 0,
+    JSON_OBJECT,
     JSON_ARRAY,
     JSON_STRING,
     JSON_NUMBER,
