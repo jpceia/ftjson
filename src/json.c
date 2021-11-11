@@ -60,9 +60,10 @@ t_json json_parse(char **str)
             json.object = NULL; // Work in progress
             break ;
         case '[':
-            // Work in progress
             json.type = JSON_ARRAY;
-            json.array = NULL; // Work in progress
+            json.array = json_array_parse(str);
+            if (json.array == NULL || *str == NULL)
+                json.type = JSON_ERROR;
             break ;
         case '"':
             json.type = JSON_STRING;

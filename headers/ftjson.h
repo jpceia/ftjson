@@ -74,6 +74,7 @@ int json_array_size(t_json_array *array);
 t_json_array *json_array_pushback(t_json_array **array, t_json value);
 t_json_array *json_array_pushfront(t_json_array **array, t_json value);
 char *json_array_stringify(t_json_array *array);
+t_json_array *json_array_parse(char **str);
 
 // -----------------------------------------------------------------------------
 // JSON String Functions

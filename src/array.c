@@ -124,3 +124,41 @@ char *json_array_stringify(t_json_array *array)
     string_array_free(arr, arr_size);
     return (text);
 }
+
+// Parsers a JSON array from a string
+t_json_array *json_array_parse(char **str)
+{
+    t_json_array *array = NULL;
+    t_json value;
+
+    if (*str == NULL)
+        return NULL;
+    if (**str != '[')
+    {
+        fprintf(stderr, "Expected '['");
+        return NULL;
+    }
+    ++*str;
+    while (1)
+    {
+        value = json_parse(str);
+        if (value.type == JSON_ERROR)
+        {
+            json_array_free(array);
+            return NULL;
+        }
+        if (!json_array_pushback(&array, value))
+            return (NULL);
+        if (**str == ',')
+            ++*str;
+        else if (**str == ']')
+            break;
+        else
+        {
+            fprintf(stderr, "Expected ',' or '}'");
+            return (NULL);
+        }
+    }
+    ++*str;
+    return array;
+}
