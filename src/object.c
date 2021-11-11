@@ -33,6 +33,7 @@ void json_object_free(t_json_object *object)
     if (object == NULL)
         return ;
     json_object_free(object->next);
+    free(object->key);
     json_free(object->value);
     free(object);
 }
