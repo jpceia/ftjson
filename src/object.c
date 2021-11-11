@@ -50,6 +50,22 @@ int json_object_size(t_json_object *object)
     return (size);
 }
 
+// addback json object
+t_json_object *json_object_append(t_json_object **object, t_json_object *new)
+{
+    t_json_object *node = *object;
+
+    if (node == NULL)
+    {
+        *object = new;
+        return new;
+    }
+    while (node->next != NULL)
+        node = node->next;
+    node->next = new;
+    return new;
+}
+
 // pushback json object
 t_json_object *json_object_pushback(t_json_object **object, char *key, t_json value)
 {
@@ -57,16 +73,7 @@ t_json_object *json_object_pushback(t_json_object **object, char *key, t_json va
 
     if (new == NULL)
         return (NULL);
-    if (*object == NULL)
-        *object = new;
-    else
-    {
-        t_json_object *node = *object;
-        while (node->next != NULL)
-            node = node->next;
-        node->next = new;
-    }
-    return (new);
+    return json_object_append(object, new);
 }
 
 // pushfront json object

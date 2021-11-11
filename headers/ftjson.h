@@ -60,6 +60,7 @@ t_json json_from_object(t_json_object *object);
 t_json_object *json_object_new(char *key, t_json value);
 void json_object_free(t_json_object *object);
 int json_object_size(t_json_object *object);
+t_json_object *json_object_append(t_json_object **object, t_json_object *new_object);
 t_json_object *json_object_pushback(t_json_object **object, char *key, t_json value);
 char *json_object_stringify(t_json_object *object);
 
