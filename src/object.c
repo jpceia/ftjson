@@ -151,3 +151,71 @@ char *json_object_stringify(t_json_object *object)
     string_array_free(arr, arr_size);
     return (text);
 }
+
+t_json_object *json_key_value_parse(char **str)
+{
+    char *key = NULL;
+    t_json value;
+
+    if (*str == NULL)
+        return (NULL);
+    json_move_whitespace(str);
+    key = json_string_parse(str);
+    if (key == NULL)
+        return (NULL);
+    if (**str != ':')
+    {
+        fprintf(stderr, "Expected ':'");
+        free(key);
+        return (NULL);
+    }
+    ++*str;
+    value = json_parse(str);
+    if (value.type == JSON_ERROR)
+    {
+        free(key);
+        return (NULL);
+    }
+    json_move_whitespace(str);
+    return json_object_new(key, value);
+}
+
+// Parsers a t_json_object from a string
+t_json_object *json_object_parse(char **str)
+{
+    t_json_object *object = NULL;
+    t_json_object *last = NULL;
+
+    if (*str == NULL)
+        return NULL;
+    if (**str != '{')
+    {
+        perror("Expected '{'");
+        return NULL;
+    }
+    ++*str;
+    if (**str != '}')
+    {
+        while (1)
+        {
+            last = json_key_value_parse(str);
+            if (last == NULL)
+            {
+                json_object_free(object);
+                return NULL;
+            }
+            object = json_object_append(&object, last);
+            if (**str == '}')
+                break;
+            if (**str != ',')
+            {
+                fprintf(stderr, "Expected ',' or '}'");
+                json_object_free(object);
+                return NULL;
+            }
+            ++*str;
+        }
+    }
+    ++*str;
+    return object;
+}

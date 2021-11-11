@@ -63,6 +63,7 @@ int json_object_size(t_json_object *object);
 t_json_object *json_object_append(t_json_object **object, t_json_object *new_object);
 t_json_object *json_object_pushback(t_json_object **object, char *key, t_json value);
 char *json_object_stringify(t_json_object *object);
+t_json_object *json_object_parse(char **str);
 
 // -----------------------------------------------------------------------------
 // JSON Array Functions
