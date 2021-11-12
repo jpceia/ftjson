@@ -56,15 +56,7 @@ t_json json_from_boolean(int boolean)
 
 char *json_boolean_stringify(int boolean)
 {
-    char *str = malloc(5);
-    
-    if (str == NULL)
-        return NULL;
-    if (boolean)
-        strcpy(str, "true");
-    else
-        strcpy(str, "false");
-    return str;
+    return strdup(boolean ? "true" : "false");
 }
 
 // Parses a JSON boolean from a string.
@@ -98,12 +90,7 @@ t_json json_from_null(void)
 
 char *json_null_stringify(void)
 {
-    char *str = malloc(4);
-    
-    if (str == NULL)
-        return NULL;
-    strcpy(str, "null");
-    return str;
+    return strdup("null");
 }
 
 void json_null_parse(char **str)
