@@ -140,12 +140,12 @@ char *json_object_stringify(t_json_object *object)
     strcpy(text, "{");
         if (arr_size > 0)
     {
-            strcat(text, arr[0]);
-            for (int i = 1; i < arr_size; ++i)
-            {
-                strcat(text, ", ");
-        strcat(text, arr[i]);
-    }
+        strcat(text, arr[0]);
+        for (int i = 1; i < arr_size; ++i)
+        {
+            strcat(text, ", ");
+            strcat(text, arr[i]);
+        }
     }
     strcat(text, "}");
     }
