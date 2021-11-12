@@ -109,7 +109,8 @@ char *json_array_stringify(t_json_array *array)
     text = malloc(size + 1);
     if (text != NULL)
     {
-        strcpy(text, "[");
+        text[0] = '\0';
+        strcat(text, "[");
         if (arr_size > 0)
         {
             strcat(text, arr[0]);

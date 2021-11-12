@@ -137,8 +137,9 @@ char *json_object_stringify(t_json_object *object)
     text = malloc(size + 1);
     if (text != NULL)
     {
-    strcpy(text, "{");
-        if (arr_size > 0)
+        text[0] = '\0';
+        strcat(text, "{");
+    if (arr_size > 0)
     {
         strcat(text, arr[0]);
         for (int i = 1; i < arr_size; ++i)

@@ -21,7 +21,8 @@ char *json_string_stringify(char *string)
     text = malloc(strlen(string) + 3);
     if (text == NULL)
         return NULL;
-    strcpy(text, "\"");
+    text[0] = '\0';
+    strcat(text, "\"");
     strcat(text, string);
     strcat(text, "\"");
     return text;
