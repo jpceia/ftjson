@@ -1,16 +1,17 @@
-NAME        = libjson.a
+NAME            = libjson.a
 
-INC_DIR     = headers
+INC_DIR         = headers
 
-SRC_DIR     = src
-TEST_DIR    = test_src
-OBJ_DIR     = obj
-BIN_DIR     = bin
+SRC_DIR         = src
+TEST_SRC_DIR    = test_src
+OBJ_DIR         = obj
+TEST_OBJ_DIR    = test_obj
+BIN_DIR         = bin
 
 SRCS        = $(shell find $(SRC_DIR) -name "*.c" -type f)
-SRCS_TEST   = $(shell find $(TEST_DIR) -name "*.c" -type f)
+TEST_SRCS   = $(shell find $(TEST_SRC_DIR) -name "*.c" -type f)
 OBJS        = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-OBJS_TEST   = $(SRCS_TEST:$(TEST_DIR)/%.c=$(OBJ_DIR)/%.o)
+TEST_OBJS   = $(TEST_SRCS:$(TEST_SRC_DIR)/%.c=$(TEST_OBJ_DIR)/%.o)
 
 CC          = gcc
 RM          = rm -f
@@ -24,7 +25,7 @@ FLAGS_OPT   = -O3
 TESTER_LIBS = -ljson -lcheck -lz -lrt -pthread -lm -lsubunit
 
 CFLAGS      = $(FLAGS_WARN) $(FLAGS_OPT) $(FLAGS_INC)
-LDFLAGS     = $(FLAGS_WARN) $(FLAGS_OPT) -L./$(BIN_DIR)
+LDFLAGS     = $(FLAGS_WARN) $(FLAGS_OPT) -L$(BIN_DIR)
 
 all:        $(NAME)
 
@@ -33,7 +34,7 @@ $(OBJ_DIR)/%.o:  $(SRC_DIR)/%.c
 			@mkdir -p $(dir $@)
 			$(CC) -c $< -o $@ $(CFLAGS)
 
-$(OBJ_DIR)/%.o:  $(TEST_DIR)/%.c
+$(TEST_OBJ_DIR)/%.o:  $(TEST_SRC_DIR)/%.c
 			@mkdir -p $(dir $@)
 			$(CC) -c $< -o $@ $(CFLAGS)
 
@@ -45,14 +46,14 @@ $(NAME):    $(OBJS)
 			mv $(NAME) $(BIN_DIR)
 
 # Tester
-test:		$(NAME) $(OBJS_TEST)
-			$(CC) $(OBJS_TEST) -o $@ $(LDFLAGS) $(TESTER_LIBS) $(FLAGS_DEBUG)
-			./$@
-			$(RM) $@
+test:		$(NAME) $(TEST_OBJS)
+			$(CC) $(TEST_OBJS) -o $@ $(LDFLAGS) $(TESTER_LIBS) $(FLAGS_DEBUG)
+			@./$@
+			@$(RM) $@
 
 # Cleaning
 clean:
-			$(RM) -rf $(OBJ_DIR)
+			$(RM) -rf $(OBJ_DIR) $(TEST_OBJ_DIR)
 
 fclean:     clean
 			$(RM) -rf $(BIN_DIR)
