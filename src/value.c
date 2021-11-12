@@ -62,12 +62,12 @@ char *json_boolean_stringify(int boolean)
 // Parses a JSON boolean from a string.
 int json_boolean_parse(char **str)
 {
-    if (strncmp(*str, "true", 4))
+    if (!strncmp(*str, "true", 4))
     {
         *str += 4;
         return 1;
     }
-    else if (strncmp(*str, "false", 5))
+    else if (!strncmp(*str, "false", 5))
     {
         *str += 5;
         return 0;
