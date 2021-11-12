@@ -57,16 +57,13 @@ t_json json_parse(char **str)
     {
         case '{':
             json.type = JSON_OBJECT;
-            json.object = NULL; // Work in progress
-            json_object_parse(str);
+            json.object = json_object_parse(str);
             if (json.object == NULL || *str == NULL)
                 json.type = JSON_ERROR;
             break ;
         case '[':
-            // Work in progress
             json.type = JSON_ARRAY;
-            json.array = NULL; // Work in progress
-            json_array_parse(str);
+            json.array = json_array_parse(str);
             if (json.array == NULL || *str == NULL)
                 json.type = JSON_ERROR;
             break ;
