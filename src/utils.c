@@ -38,7 +38,7 @@ char *file_to_string(const char *filename)
         fseek(fp, 0, SEEK_SET);
         str = malloc(length);
         if (str)
-            fread(str, 1, length, fp);
+            (void)!fread(str, 1, length, fp);
         fclose (fp);
     }
     return str;
