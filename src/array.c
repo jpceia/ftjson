@@ -139,6 +139,8 @@ t_json_array *json_array_parse(char **str)
         return NULL;
     }
     ++*str;
+    if (**str == ']')
+        return NULL;
     while (1)
     {
         value = json_parse(str);
