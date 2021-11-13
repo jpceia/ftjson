@@ -54,7 +54,7 @@ t_json_array *json_array_pushback(t_json_array **array, t_json value)
     t_json_array *new = json_array_new(value);
 
     if (new == NULL)
-        return (NULL);
+        return NULL;
     if (*array == NULL)
         *array = new;
     else
@@ -154,18 +154,20 @@ t_json_array *json_array_parse(char **str)
         }
         if (!json_array_pushback(&array, value))
         {
+            json_array_free(array);
             *str = NULL;
-            return (NULL);
+            return NULL;
         }
         if (**str == ',')
             ++*str;
         else if (**str == ']')
-            break;
+            break ;
         else
         {
             fprintf(stderr, "Expected ',' or '}'\n");
+            json_array_free(array);
             *str = NULL;
-            return (NULL);
+            return NULL;
         }
     }
     ++*str;

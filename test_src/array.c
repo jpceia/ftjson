@@ -127,6 +127,20 @@ START_TEST (parse_array_trailing_comma)
 }
 END_TEST
 
+/*
+ * Parse a JSON unclosed array
+ */
+START_TEST (parse_array_unclosed)
+{
+    char *str = "[\"hello\"";
+    char *p = str;
+    t_json json = json_parse(&p);
+    ck_assert_uint_eq(json.type, JSON_ERROR);
+    json_free(json);
+}
+END_TEST
+
+
 TCase *json_array_test_case(void)
 {
     TCase *tc = tcase_create("JSON_Array");
@@ -138,5 +152,6 @@ TCase *json_array_test_case(void)
     tcase_add_test(tc, parse_array_nested2);
     tcase_add_test(tc, parse_array_invalid_element);
     tcase_add_test(tc, parse_array_trailing_comma);
+    tcase_add_test(tc, parse_array_unclosed);
     return tc;
 }

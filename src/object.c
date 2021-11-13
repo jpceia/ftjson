@@ -208,9 +208,9 @@ t_json_object *json_object_parse(char **str)
                 *str = NULL;
                 return NULL;
             }
-            object = json_object_append(&object, last);
+            json_object_append(&object, last);
             if (**str == '}')
-                break;
+                break ;
             if (**str != ',')
             {
                 fprintf(stderr, "Expected ',' or '}'\n");
