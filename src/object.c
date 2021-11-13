@@ -193,6 +193,7 @@ t_json_object *json_object_parse(char **str)
     if (**str != '{')
     {
         perror("Expected '{'");
+        *str = NULL;
         return NULL;
     }
     ++*str;
@@ -204,6 +205,7 @@ t_json_object *json_object_parse(char **str)
             if (last == NULL)
             {
                 json_object_free(object);
+                *str = NULL;
                 return NULL;
             }
             object = json_object_append(&object, last);
@@ -213,6 +215,7 @@ t_json_object *json_object_parse(char **str)
             {
                 fprintf(stderr, "Expected ',' or '}'\n");
                 json_object_free(object);
+                *str = NULL;
                 return NULL;
             }
             ++*str;

@@ -136,6 +136,7 @@ t_json_array *json_array_parse(char **str)
         return NULL;
     if (**str != '[')
     {
+        *str = NULL;
         fprintf(stderr, "Expected '['\n");
         return NULL;
     }
@@ -148,10 +149,14 @@ t_json_array *json_array_parse(char **str)
         if (value.type == JSON_ERROR)
         {
             json_array_free(array);
+            *str = NULL;
             return NULL;
         }
         if (!json_array_pushback(&array, value))
+        {
+            *str = NULL;
             return (NULL);
+        }
         if (**str == ',')
             ++*str;
         else if (**str == ']')
@@ -159,6 +164,7 @@ t_json_array *json_array_parse(char **str)
         else
         {
             fprintf(stderr, "Expected ',' or '}'\n");
+            *str = NULL;
             return (NULL);
         }
     }
