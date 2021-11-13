@@ -58,13 +58,13 @@ t_json json_parse(char **str)
         case '{':
             json.type = JSON_OBJECT;
             json.object = json_object_parse(str);
-            if (json.object == NULL || *str == NULL)
+            if (*str == NULL)
                 json.type = JSON_ERROR;
             break ;
         case '[':
             json.type = JSON_ARRAY;
             json.array = json_array_parse(str);
-            if (json.array == NULL || *str == NULL)
+            if (*str == NULL)
                 json.type = JSON_ERROR;
             break ;
         case '"':
