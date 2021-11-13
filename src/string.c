@@ -110,7 +110,7 @@ char *json_string_parse(char **str)
         if (i > size)
         {
             size *= 2;
-            text = realloc(text, size + 1);
+            text = realloc_free_on_fail(text, size + 1);
             if (text == NULL)
             {
                 perror(__FUNCTION__);
