@@ -136,7 +136,7 @@ t_json_array *json_array_parse(char **str)
         return NULL;
     if (**str != '[')
     {
-        fprintf(stderr, "Expected '['");
+        fprintf(stderr, "Expected '['\n");
         return NULL;
     }
     ++*str;
@@ -158,7 +158,7 @@ t_json_array *json_array_parse(char **str)
             break;
         else
         {
-            fprintf(stderr, "Expected ',' or '}'");
+            fprintf(stderr, "Expected ',' or '}'\n");
             return (NULL);
         }
     }

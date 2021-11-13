@@ -139,16 +139,16 @@ char *json_object_stringify(t_json_object *object)
     {
         text[0] = '\0';
         strcat(text, "{");
-    if (arr_size > 0)
-    {
-        strcat(text, arr[0]);
-        for (int i = 1; i < arr_size; ++i)
+        if (arr_size > 0)
         {
-            strcat(text, ", ");
-            strcat(text, arr[i]);
+            strcat(text, arr[0]);
+            for (int i = 1; i < arr_size; ++i)
+            {
+                strcat(text, ", ");
+                strcat(text, arr[i]);
+            }
         }
-    }
-    strcat(text, "}");
+        strcat(text, "}");
     }
     string_array_free(arr, arr_size);
     return (text);
@@ -167,7 +167,7 @@ t_json_object *json_key_value_parse(char **str)
         return (NULL);
     if (**str != ':')
     {
-        fprintf(stderr, "Expected ':'");
+        fprintf(stderr, "Expected ':'\n");
         free(key);
         return (NULL);
     }
@@ -211,7 +211,7 @@ t_json_object *json_object_parse(char **str)
                 break;
             if (**str != ',')
             {
-                fprintf(stderr, "Expected ',' or '}'");
+                fprintf(stderr, "Expected ',' or '}'\n");
                 json_object_free(object);
                 return NULL;
             }

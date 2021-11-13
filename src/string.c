@@ -103,7 +103,7 @@ char *json_string_parse(char **str)
     {
         if (is_control_character(**str))
         {
-            fprintf(stderr, "Control character in string");
+            fprintf(stderr, "Control character in string\n");
             free(text);
             return NULL;
         }
@@ -128,7 +128,7 @@ char *json_string_parse(char **str)
     }
     if (**str != '"')
     {
-        fprintf(stderr, "Unterminated string");
+        fprintf(stderr, "Unterminated string\n");
         free(text);
         return NULL;
     }
