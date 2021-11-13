@@ -109,21 +109,14 @@ START_TEST (parse_string_error2)
 END_TEST
 
 
-Suite *json_string_suite(void)
+TCase *json_string_test_case(void)
 {
-    Suite *s;
-    TCase *tc_core;
+    TCase *tc = tcase_create("JSON_String");
 
-    s = suite_create("JSON");
+    tcase_add_test(tc, parse_string1);
+    tcase_add_test(tc, parse_string2);
+    tcase_add_test(tc, parse_string_error1);
+    tcase_add_test(tc, parse_string_error2);
 
-    /* Core test case */
-    tc_core = tcase_create("Core");
-
-    tcase_add_test(tc_core, parse_string1);
-    tcase_add_test(tc_core, parse_string2);
-    tcase_add_test(tc_core, parse_string_error1);
-    tcase_add_test(tc_core, parse_string_error2);
-    suite_add_tcase(s, tc_core);
-
-    return s;
+    return tc;
 }
