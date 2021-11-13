@@ -1,7 +1,20 @@
 #include "ftjson.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <check.h>
 
+
+char *quote_string(const char *str)
+{
+    char *ret = malloc(strlen(str) + 3);
+    if (ret == NULL)
+        return NULL;
+    ret[0] = '\0';
+    strcat(ret, "\"");
+    strcat(ret, str);
+    strcat(ret, "\"");
+    return ret;
+}
 
 /*
  * Parse a JSON with a (quoted) string and stringify it again.
@@ -12,11 +25,9 @@ START_TEST (parse_string1)
     char *str = "name";
     char *s1, *s2;
 
-    s1 = malloc(strlen(str) + 3);
-    s1[0] = '\0';
-    strcat(s1, "\"");
-    strcat(s1, str);
-    strcat(s1, "\"");
+    s1 = quote_string(str);
+    if (s1 == NULL)
+        fail();
     char *p = s1;
     t_json json = json_parse(&p);
     ck_assert_uint_eq(json.type, JSON_STRING);
@@ -38,11 +49,9 @@ START_TEST (parse_string2)
     char *str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed";
     char *s1, *s2;
 
-    s1 = malloc(strlen(str) + 3);
-    s1[0] = '\0';
-    strcat(s1, "\"");
-    strcat(s1, str);
-    strcat(s1, "\"");
+    s1 = quote_string(str);
+    if (s1 == NULL)
+        fail();
     char *p = s1;
     t_json json = json_parse(&p);
     ck_assert_uint_eq(json.type, JSON_STRING);
