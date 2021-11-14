@@ -117,7 +117,7 @@ char *json_object_stringify(t_json_object *object)
 {
     char *text = NULL;
     char **arr = NULL;
-    int size = 0;
+    int size = 2;
     int arr_size = json_object_size(object);
     
     arr = malloc(sizeof(char *) * arr_size);
@@ -134,6 +134,8 @@ char *json_object_stringify(t_json_object *object)
         size += strlen(arr[i]) + 2;
         object = object->next;
     }
+    if (arr_size > 0)
+        size -= 2;
     text = malloc(size + 1);
     if (text != NULL)
     {
