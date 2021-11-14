@@ -49,6 +49,7 @@ typedef struct s_json_array
 // -----------------------------------------------------------------------------
 
 void json_free(t_json json);
+t_json json_error(void);
 char *json_stringify(t_json json);
 t_json json_parse(char **str);
 

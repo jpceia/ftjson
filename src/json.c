@@ -9,16 +9,25 @@ void json_free(t_json json)
     {
     case JSON_OBJECT:
         json_object_free(json.object);
-        break;
+        break ;
     case JSON_ARRAY:
         json_array_free(json.array);
-        break;
+        break ;
     case JSON_STRING:
         free(json.string);
-        break;
+        break ;
     default:
-        break;
+        break ;
     }
+}
+
+// Json error
+t_json json_error(void)
+{
+    t_json json;
+
+    json.type = JSON_ERROR;
+    return (json);
 }
 
 // convert a json to a string
@@ -59,32 +68,32 @@ t_json json_parse(char **str)
             json.type = JSON_OBJECT;
             json.object = json_object_parse(str);
             if (*str == NULL)
-                json.type = JSON_ERROR;
+                return json_error();
             break ;
         case '[':
             json.type = JSON_ARRAY;
             json.array = json_array_parse(str);
             if (*str == NULL)
-                json.type = JSON_ERROR;
+                return json_error();
             break ;
         case '"':
             json.type = JSON_STRING;
             json.string = json_string_parse(str);
             if (json.string == NULL || *str == NULL)
-                json.type = JSON_ERROR;
+                return json_error();
             break ;
         case 't':
         case 'f':
             json.type = JSON_BOOLEAN;
             json.boolean = json_boolean_parse(str);
-            if (json.boolean < 0 || *str == NULL)
-                json.type = JSON_ERROR;
+            if (*str == NULL)
+                return json_error();
             break ;
         case 'n':
             json.type = JSON_NULL;
             json_null_parse(str);
             if (*str == NULL)
-                json.type = JSON_ERROR;
+                return json_error();
             break ;
         case '-':
         case '0':
@@ -100,14 +109,11 @@ t_json json_parse(char **str)
             json.type = JSON_NUMBER;
             json.number = json_number_parse(str);
             if (*str == NULL)
-                json.type = JSON_ERROR;
+                return json_error();
             break ;
         default:
-            json.type = JSON_ERROR;
+            return json_error();
     }
-    if (json.type == JSON_ERROR)
-        json_free(json);
-    else
-        json_move_whitespace(str);
+    json_move_whitespace(str);
     return json;
 }
