@@ -18,12 +18,11 @@ char *json_null_stringify(void)
 
 void json_null_parse(char **str)
 {
-    char *null_str = "null";
-
-    if (strncmp(*str, null_str, 4) != 0)
+    if (strncmp(*str, "null", 4) != 0)
     {
-        perror("Invalid name");
+        fprintf(stderr, "Invalid name\n");
         *str = NULL;
+        return ;
     }
     *str += 4;
 }
