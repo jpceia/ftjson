@@ -45,6 +45,21 @@ START_TEST (parse_null_invalid_1)
 {
     char *str = "none";
     t_json json = json_parse(str);
+
+    ck_assert_uint_eq(json.type, JSON_ERROR);
+    json_free(json);
+}
+END_TEST
+
+/*
+ * Parse a JSON an invalid null
+ * starts with 'null' but the string is longer
+ */
+START_TEST (parse_null_invalid_2)
+{
+    char *str = "nulllll";
+    t_json json = json_parse(str);
+
     ck_assert_uint_eq(json.type, JSON_ERROR);
     json_free(json);
 }
@@ -58,5 +73,6 @@ TCase *json_null_test_case(void)
     tcase_add_test(tc, parse_null);
     tcase_add_test(tc, parse_null_ws);
     tcase_add_test(tc, parse_null_invalid_1);
+    tcase_add_test(tc, parse_null_invalid_2);
     return tc;
 }
