@@ -194,7 +194,7 @@ t_json_object *json_object_parse(char **str)
         return NULL;
     if (**str != '{')
     {
-        perror("Expected '{'");
+        fprintf(stderr, "Expected '{'\n");
         *str = NULL;
         return NULL;
     }
