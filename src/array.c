@@ -164,7 +164,7 @@ t_json_array *json_array_parse(char **str)
             break ;
         else
         {
-            fprintf(stderr, "Expected ',' or '}'\n");
+            fprintf(stderr, "Expected ',' or ']'\n");
             json_array_free(array);
             *str = NULL;
             return NULL;
