@@ -7,6 +7,7 @@
 char *quote_string(const char *str)
 {
     char *ret = malloc(strlen(str) + 3);
+
     if (ret == NULL)
         return NULL;
     ret[0] = '\0';
@@ -28,8 +29,8 @@ START_TEST (parse_string1)
     s1 = quote_string(str);
     if (s1 == NULL)
         fail();
-    char *p = s1;
-    t_json json = json_parse(&p);
+
+    t_json json = json_parse(s1);
     ck_assert_uint_eq(json.type, JSON_STRING);
     ck_assert_str_eq(json.string, str);
     s2 = json_stringify(json);
@@ -52,8 +53,8 @@ START_TEST (parse_string2)
     s1 = quote_string(str);
     if (s1 == NULL)
         fail();
-    char *p = s1;
-    t_json json = json_parse(&p);
+
+    t_json json = json_parse(s1);
     ck_assert_uint_eq(json.type, JSON_STRING);
     ck_assert_str_eq(json.string, str);
     s2 = json_stringify(json);
@@ -78,8 +79,8 @@ START_TEST (parse_string_error1)
     s[0] = '\0';
     strcat(s, "\"");
     strcat(s, str);
-    char *p = s;
-    t_json json = json_parse(&p);
+
+    t_json json = json_parse(s);
     ck_assert_uint_eq(json.type, JSON_ERROR);
     // ck_assert_ptr_eq(json.string, NULL); -> not necessarily NULL
     free(s);
@@ -100,8 +101,8 @@ START_TEST (parse_string_error2)
     s[0] = '\0';
     strcat(s, str);
     strcat(s, "\"");
-    char *p = s;
-    t_json json = json_parse(&p);
+
+    t_json json = json_parse(s);
     ck_assert_uint_eq(json.type, JSON_ERROR);
     // ck_assert_ptr_eq(json.string, NULL); -> not necessarily NULL
     free(s);

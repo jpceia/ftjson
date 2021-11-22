@@ -142,10 +142,13 @@ t_json_array *json_array_parse(char **str)
     }
     ++*str;
     if (**str == ']')
+    {
+        ++*str;
         return NULL;
+    }
     while (1)
     {
-        value = json_parse(str);
+        value = json_parse_next(str);
         if (value.type == JSON_ERROR)
         {
             json_array_free(array);

@@ -1,4 +1,5 @@
 #include "ftjson.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -52,7 +53,22 @@ char *json_stringify(t_json json)
 }
 
 // JSON Parse
-t_json json_parse(char **str)
+t_json json_parse(char *str)
+{
+    t_json json = json_parse_next(&str);
+    if (str == NULL)
+        return (json);
+    if (*str != '\0')
+    {
+        fprintf(stderr, "Parsing failled, the string is not null terminated: %s\n", str);
+        json_free(json);
+        return json_error();
+    }
+    return json;
+}
+
+
+t_json json_parse_next(char **str)
 {
     t_json json;
 

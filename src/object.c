@@ -174,7 +174,7 @@ t_json_object *json_key_value_parse(char **str)
         return (NULL);
     }
     ++*str;
-    value = json_parse(str);
+    value = json_parse_next(str);
     if (value.type == JSON_ERROR)
     {
         free(key);
@@ -199,29 +199,31 @@ t_json_object *json_object_parse(char **str)
         return NULL;
     }
     ++*str;
-    if (**str != '}')
+    if (**str == '}')
     {
-        while (1)
+        ++*str;
+        return NULL;
+    }
+    while (1)
+    {
+        last = json_key_value_parse(str);
+        if (last == NULL)
         {
-            last = json_key_value_parse(str);
-            if (last == NULL)
-            {
-                json_object_free(object);
-                *str = NULL;
-                return NULL;
-            }
-            json_object_append(&object, last);
-            if (**str == '}')
-                break ;
-            if (**str != ',')
-            {
-                fprintf(stderr, "Expected ',' or '}'\n");
-                json_object_free(object);
-                *str = NULL;
-                return NULL;
-            }
-            ++*str;
+            json_object_free(object);
+            *str = NULL;
+            return NULL;
         }
+        json_object_append(&object, last);
+        if (**str == '}')
+            break ;
+        if (**str != ',')
+        {
+            fprintf(stderr, "Expected ',' or '}'\n");
+            json_object_free(object);
+            *str = NULL;
+            return NULL;
+        }
+        ++*str;
     }
     ++*str;
     return object;

@@ -11,8 +11,8 @@
 START_TEST (parse_array_empty)
 {
     char *str = "[]";
-    char *p = str;
-    t_json json = json_parse(&p);
+    t_json json = json_parse(str);
+
     ck_assert_uint_eq(json.type, JSON_ARRAY);
     ck_assert_ptr_eq(json.array, NULL);
     // compare strings
@@ -29,9 +29,8 @@ END_TEST
 START_TEST (parse_array_one_element)
 {
     char *str = "[\"hello\"]";
-    char *p = str;
-    
-    t_json json = json_parse(&p);
+    t_json json = json_parse(str);
+
     ck_assert_uint_eq(json.type, JSON_ARRAY);
     ck_assert_uint_eq(json_array_size(json.array), 1);
     // compare strings
@@ -48,9 +47,8 @@ END_TEST
 START_TEST (parse_array_two_elements)
 {
     char *str = "[\"hello\", \"world\"]";
-    char *p = str;
-    
-    t_json json = json_parse(&p);
+    t_json json = json_parse(str);
+
     ck_assert_uint_eq(json.type, JSON_ARRAY);
     ck_assert_uint_eq(json_array_size(json.array), 2);
     // compare strings
@@ -67,9 +65,8 @@ END_TEST
 START_TEST (parse_array_nested1)
 {
     char *str = "[\"a\", [\"b\", [\"c\"]]]";
-    char *p = str;
-    
-    t_json json = json_parse(&p);
+    t_json json = json_parse(str);
+
     ck_assert_uint_eq(json.type, JSON_ARRAY);
     ck_assert_uint_eq(json_array_size(json.array), 2);
     ck_assert_uint_eq(json.array->next->value.type, JSON_ARRAY);
@@ -87,9 +84,8 @@ END_TEST
 START_TEST (parse_array_nested2)
 {
     char *str = "[[[\"a\"], \"b\"], \"c\"]";
-    char *p = str;
-    
-    t_json json = json_parse(&p);
+    t_json json = json_parse(str);
+
     ck_assert_uint_eq(json.type, JSON_ARRAY);
     ck_assert_int_eq(json_array_size(json.array), 2);
     ck_assert_uint_eq(json.array->value.type, JSON_ARRAY);
@@ -107,8 +103,8 @@ END_TEST
 START_TEST (parse_array_invalid_element)
 {
     char *str = "[a]";
-    char *p = str;
-    t_json json = json_parse(&p);
+    t_json json = json_parse(str);
+
     ck_assert_uint_eq(json.type, JSON_ERROR);
     json_free(json);
 }
@@ -120,8 +116,8 @@ END_TEST
 START_TEST (parse_array_trailing_comma)
 {
     char *str = "[\"hello\",]";
-    char *p = str;
-    t_json json = json_parse(&p);
+    t_json json = json_parse(str);
+
     ck_assert_uint_eq(json.type, JSON_ERROR);
     json_free(json);
 }
@@ -133,8 +129,8 @@ END_TEST
 START_TEST (parse_array_unclosed)
 {
     char *str = "[\"hello\"";
-    char *p = str;
-    t_json json = json_parse(&p);
+    t_json json = json_parse(str);
+
     ck_assert_uint_eq(json.type, JSON_ERROR);
     json_free(json);
 }
