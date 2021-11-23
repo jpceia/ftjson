@@ -15,10 +15,26 @@ void string_array_free(char **array, int size)
     free(array);
 }
 
-void json_move_whitespace(char **str)
+/**
+ * @brief   Checks if a character is a whitespace.
+ * 
+ * @param   c   the character to check.
+ * @return  int 1 if the character is a whitespace, 0 otherwise.
+ */
+int is_whitespace(char c)
 {
-    while (**str == ' ' || **str == '\t' || **str == '\n' || **str == '\r')
-        ++*str;
+    return c == ' ' || c == '\t' || c == '\n' || c == '\r';
+}
+
+/**
+ * @brief   Moves the cursor to the next non-whitespace character.
+ * 
+ * @param   str the cursor to move. 
+ */
+void json_move_whitespace(char **cursor)
+{
+    while (is_whitespace(**cursor))
+        ++*cursor;
 }
 
 /**
