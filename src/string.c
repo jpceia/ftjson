@@ -113,7 +113,7 @@ char *json_string_parse(char **str)
             text = realloc_free_on_fail(text, size + 1);
             if (text == NULL)
             {
-                perror(__FUNCTION__);
+                perror("json_string_parse");
                 return NULL;
             }
         }
@@ -138,7 +138,7 @@ char *json_string_parse(char **str)
         text = realloc_free_on_fail(text, size + 1);
         if (text == NULL)
         {
-            perror(__FUNCTION__);
+            perror("json_string_parse");
             return NULL;
         }
     }

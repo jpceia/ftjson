@@ -18,7 +18,7 @@ RM          = rm -f
 
 OS          = $(shell uname)
 
-FLAGS_WARN  = -Wall -Wextra -Werror
+FLAGS_WARN  = -Wall -Wextra -Werror -pedantic-errors
 FLAGS_INC   = -I$(INC_DIR)
 FLAGS_DEBUG = -ggdb3 -DDEBUG -fsanitize=address
 FLAGS_OPT   = -O3
