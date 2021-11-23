@@ -11,6 +11,7 @@ START_TEST (parse_null)
 {
     char *str = "null";
     t_json json = json_parse(str);
+
     ck_assert_uint_eq(json.type, JSON_NULL);
     // compare strings
     char *s = json_stringify(json);
@@ -31,7 +32,7 @@ START_TEST (parse_null_ws)
     ck_assert_uint_eq(json.type, JSON_NULL);
     // compare strings
     char *s = json_stringify(json);
-    ck_assert_str_eq(s, "null");
+    ck_assert_int_eq(json_strcmp(s, str), 0);
     free(s);
     json_free(json);
 }
