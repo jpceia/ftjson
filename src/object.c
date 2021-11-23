@@ -167,6 +167,7 @@ t_json_object *json_key_value_parse(char **str)
     key = json_string_parse(str);
     if (key == NULL)
         return (NULL);
+    json_move_whitespace(str);
     if (**str != ':')
     {
         fprintf(stderr, "Expected ':'\n");
