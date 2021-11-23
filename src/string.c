@@ -78,7 +78,6 @@ char json_control_character_parse(char **str)
         fprintf(stderr, "Invalid escape sequence\n");
         return 0; // Invalid escape sequence
     }
-    ++*str;
     return c;
 }
 
