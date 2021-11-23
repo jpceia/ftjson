@@ -55,6 +55,42 @@ void *realloc_free_on_fail(void *ptr, size_t size)
 }
 
 /**
+ * @brief  Compares two strings, ignoring the whitespaces outside double quotes.
+ * 
+ * @param   str1    the first string.
+ * @param   str2    the second string.
+ * @return  int     1 if the strings are equal, 0 otherwise.
+ */
+int json_strcmp(char *str1, char *str2)
+{
+    int inside_quotes;
+    char prev_char = 0;
+
+    json_move_whitespace(&str1);
+    json_move_whitespace(&str2);
+    inside_quotes = *str1 == '"';
+    while (*str1 && *str1 == *str2)
+    {
+        prev_char = *str1;
+        ++str1;
+        ++str2;
+        if (inside_quotes)
+        {
+            if (*str1 == '"' && prev_char != '\\')
+                inside_quotes = 0;
+        }
+        else
+        {
+            json_move_whitespace(&str1);
+            json_move_whitespace(&str2);
+            if (*str1 == '"')
+                inside_quotes = 1;
+        }
+    }
+    return ((int)*str1) - ((int)*str2);
+}
+
+/**
  * @brief   Gets the file content as a string.
  * 
  * @param   filename    the name of the file to convert.
