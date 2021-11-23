@@ -4,6 +4,7 @@
 TCase *json_string_test_case(void);
 TCase *json_object_test_case(void);
 TCase *json_array_test_case(void);
+TCase *json_number_test_case(void);
 TCase *json_boolean_test_case(void);
 TCase *json_null_test_case(void);
 
@@ -17,6 +18,7 @@ int main(void)
     suite_add_tcase(s, json_string_test_case());
     suite_add_tcase(s, json_object_test_case());
     suite_add_tcase(s, json_array_test_case());
+    suite_add_tcase(s, json_number_test_case());
     suite_add_tcase(s, json_boolean_test_case());
     suite_add_tcase(s, json_null_test_case());
     
