@@ -7,6 +7,7 @@ TCase *json_array_test_case(void);
 TCase *json_number_test_case(void);
 TCase *json_boolean_test_case(void);
 TCase *json_null_test_case(void);
+TCase *json_mixed_test_case(void);
 
 int main(void)
 {
@@ -21,6 +22,7 @@ int main(void)
     suite_add_tcase(s, json_number_test_case());
     suite_add_tcase(s, json_boolean_test_case());
     suite_add_tcase(s, json_null_test_case());
+    suite_add_tcase(s, json_mixed_test_case());
     
     sr = srunner_create(s);
     srunner_set_fork_status(sr, CK_NOFORK);
