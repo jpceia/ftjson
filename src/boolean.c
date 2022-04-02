@@ -16,7 +16,12 @@ char *json_boolean_stringify(int boolean)
     return strdup(boolean ? "true" : "false");
 }
 
-// Parses a JSON boolean from a string.
+/**
+ * @brief Parses a JSON boolean from a string
+ * 
+ * @param str 
+ * @return int 
+ */
 int json_boolean_parse(char **str)
 {
     if (!strncmp(*str, "true", 4))

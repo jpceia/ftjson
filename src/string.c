@@ -3,7 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Creates json from string
+
+/**
+ * @brief Creates json from string
+ * 
+ * @param string 
+ * @return t_json 
+ */
 t_json json_from_string(char *string)
 {
     t_json json;
@@ -13,7 +19,12 @@ t_json json_from_string(char *string)
     return json;
 }
 
-// Converts a json string to string, with quotes
+/**
+ * @brief Converts a json string to string, with quotes
+ * 
+ * @param string 
+ * @return char* 
+ */
 char *json_string_stringify(char *string)
 {
     char *text;
@@ -28,8 +39,13 @@ char *json_string_stringify(char *string)
     return text;
 }
 
-// Converts 4 hex to a utf-8 char
-void hex_to_utf8(char *hex, char *utf8)
+/**
+ * @brief Converts 4 hex to a utf-8 char
+ * 
+ * @param hex 
+ * @param utf8 
+ */
+static void hex_to_utf8(char *hex, char *utf8)
 {
     *utf8 = hex[0] - '0';
     *utf8 = (*utf8 << 4) + (hex[1] - '0');
@@ -37,9 +53,13 @@ void hex_to_utf8(char *hex, char *utf8)
     *utf8 = (*utf8 << 4) + (hex[3] - '0');
 }
 
-// Parse a Json string from a string
-
-char json_control_character_parse(char **str)
+/**
+ * @brief Parses a JSON code for a control character from a string
+ * 
+ * @param str 
+ * @return char 
+ */
+static char json_control_character_parse(char **str)
 {
     char c;
 
@@ -81,11 +101,23 @@ char json_control_character_parse(char **str)
     return c;
 }
 
-int is_control_character(char c)
+/**
+ * @brief Checks if a char is a control character
+ * 
+ * @param c 
+ * @return int 
+ */
+static int is_control_character(char c)
 {
     return c == '\n' || c == '\r' || c == '\t' || c == '\b' || c == '\f';
 }
 
+/**
+ * @brief Parses a JSON string from a string
+ * 
+ * @param str 
+ * @return char* 
+ */
 char *json_string_parse(char **str)
 {
     char *text = NULL;

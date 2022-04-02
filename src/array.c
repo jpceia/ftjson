@@ -3,7 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Json from t_json_array
+/**
+ * @brief Json from t_json_array
+ * 
+ * @param array 
+ * @return t_json 
+ */
 t_json json_from_array(t_json_array *array)
 {
     t_json json;
@@ -13,7 +18,12 @@ t_json json_from_array(t_json_array *array)
     return (json);
 }
 
-// Create json array
+/**
+ * @brief Create json array
+ * 
+ * @param value 
+ * @return t_json_array* 
+ */
 t_json_array *json_array_new(t_json value)
 {
     t_json_array *array = malloc(sizeof(t_json_array));
@@ -25,7 +35,11 @@ t_json_array *json_array_new(t_json value)
     return (array);
 }
 
-// free the json array
+/**
+ * @brief Free the json array
+ * 
+ * @param array 
+ */
 void json_array_free(t_json_array *array)
 {
     if (array == NULL)
@@ -35,7 +49,12 @@ void json_array_free(t_json_array *array)
     free(array);
 }
 
-// Gets the size of the json array
+/**
+ * @brief Gets the size of the json array
+ * 
+ * @param array 
+ * @return int 
+ */
 int json_array_size(t_json_array *array)
 {
     int size = 0;
@@ -48,7 +67,13 @@ int json_array_size(t_json_array *array)
     return (size);
 }
 
-// pushback json array
+/**
+ * @brief pushback json array
+ * 
+ * @param array 
+ * @param value 
+ * @return t_json_array* 
+ */
 t_json_array *json_array_pushback(t_json_array **array, t_json value)
 {
     t_json_array *new = json_array_new(value);
@@ -68,7 +93,13 @@ t_json_array *json_array_pushback(t_json_array **array, t_json value)
     return (new);
 }
 
-// pushfront json array
+/**
+ * @brief pushfront json array
+ * 
+ * @param array 
+ * @param value 
+ * @return t_json_array* 
+ */
 t_json_array *json_array_pushfront(t_json_array **array, t_json value)
 {
     t_json_array *new = json_array_new(value);
@@ -80,7 +111,12 @@ t_json_array *json_array_pushfront(t_json_array **array, t_json value)
     return (new);
 }
 
-// Converts a json array to a string
+/**
+ * @brief Converts a json array to a string
+ * 
+ * @param array 
+ * @return char* 
+ */
 char *json_array_stringify(t_json_array *array)
 {
     int arr_size;
@@ -126,7 +162,12 @@ char *json_array_stringify(t_json_array *array)
     return (text);
 }
 
-// Parsers a JSON array from a string
+/**
+ * @brief Parses a JSON array from a string
+ * 
+ * @param str 
+ * @return t_json_array* 
+ */
 t_json_array *json_array_parse(char **str)
 {
     t_json_array *array = NULL;

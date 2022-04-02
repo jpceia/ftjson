@@ -4,7 +4,12 @@
 #include <string.h>
 
 
-// Json from t_json_object
+/**
+ * @brief Json from t_json_object
+ * 
+ * @param object 
+ * @return t_json 
+ */
 t_json json_from_object(t_json_object *object)
 {
     t_json json;
@@ -14,7 +19,13 @@ t_json json_from_object(t_json_object *object)
     return json;
 }
 
-// Create json object
+/**
+ * @brief Create json object
+ * 
+ * @param key 
+ * @param value 
+ * @return t_json_object* 
+ */
 t_json_object *json_object_new(char *key, t_json value)
 {
     t_json_object *object = malloc(sizeof(*object));
@@ -27,7 +38,11 @@ t_json_object *json_object_new(char *key, t_json value)
     return (object);
 }
 
-// Free json object
+/**
+ * @brief Free json object
+ * 
+ * @param object 
+ */
 void json_object_free(t_json_object *object)
 {
     if (object == NULL)
@@ -38,8 +53,12 @@ void json_object_free(t_json_object *object)
     free(object);
 }
 
-
-// Get the t_json_object size
+/**
+ * @brief Get the t_json_object size
+ * 
+ * @param object 
+ * @return int 
+ */
 int json_object_size(t_json_object *object)
 {
     int size = 0;
@@ -51,7 +70,13 @@ int json_object_size(t_json_object *object)
     return (size);
 }
 
-// addback json object
+/**
+ * @brief addback json object
+ * 
+ * @param object 
+ * @param new 
+ * @return t_json_object* 
+ */
 t_json_object *json_object_append(t_json_object **object, t_json_object *new)
 {
     t_json_object *node = *object;
@@ -67,7 +92,14 @@ t_json_object *json_object_append(t_json_object **object, t_json_object *new)
     return new;
 }
 
-// pushback json object
+/**
+ * @brief pushback json object
+ * 
+ * @param object 
+ * @param key 
+ * @param value 
+ * @return t_json_object* 
+ */
 t_json_object *json_object_pushback(t_json_object **object, char *key, t_json value)
 {
     t_json_object *new = json_object_new(key, value);
@@ -77,7 +109,14 @@ t_json_object *json_object_pushback(t_json_object **object, char *key, t_json va
     return json_object_append(object, new);
 }
 
-// pushfront json object
+/**
+ * @brief pushfront json object
+ * 
+ * @param object 
+ * @param key 
+ * @param value 
+ * @return t_json_object* 
+ */
 t_json_object *json_object_pushfront(t_json_object **object, char *key, t_json value)
 {
     t_json_object *new = json_object_new(key, value);
@@ -89,7 +128,12 @@ t_json_object *json_object_pushfront(t_json_object **object, char *key, t_json v
     return (new);
 }
 
-// Converts a key value pair to a string
+/**
+ * @brief Converts a key value pair to a string
+ * 
+ * @param object 
+ * @return char* 
+ */
 static char *json_object_stringify_key_value(t_json_object* object)
 {
     char *text = NULL;
@@ -112,7 +156,12 @@ static char *json_object_stringify_key_value(t_json_object* object)
     return (text);
 }
 
-// Converts a t_json_object to a string
+/**
+ * @brief Converts a t_json_object to a string
+ * 
+ * @param object 
+ * @return char* 
+ */
 char *json_object_stringify(t_json_object *object)
 {
     char *text = NULL;
@@ -185,7 +234,12 @@ t_json_object *json_key_value_parse(char **str)
     return json_object_new(key, value);
 }
 
-// Parsers a t_json_object from a string
+/**
+ * @brief Parsers a t_json_object from a string
+ * 
+ * @param str 
+ * @return t_json_object* 
+ */
 t_json_object *json_object_parse(char **str)
 {
     t_json_object *object = NULL;

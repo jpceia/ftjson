@@ -3,7 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-// free the json contents
+
+/**
+ * @brief free the json contents
+ * 
+ * @param json 
+ */
 void json_free(t_json json)
 {
     switch (json.type)
@@ -22,7 +27,11 @@ void json_free(t_json json)
     }
 }
 
-// Json error
+/**
+ * @brief Json error
+ * 
+ * @return t_json 
+ */
 t_json json_error(void)
 {
     t_json json;
@@ -31,7 +40,12 @@ t_json json_error(void)
     return (json);
 }
 
-// convert a json to a string
+/**
+ * @brief Converts a json to a string
+ * 
+ * @param json 
+ * @return char* 
+ */
 char *json_stringify(t_json json)
 {
     switch (json.type)
@@ -52,7 +66,12 @@ char *json_stringify(t_json json)
     }
 }
 
-// JSON Parse
+/**
+ * @brief Parse a Json from a string
+ * 
+ * @param string 
+ * @return t_json 
+ */
 t_json json_parse(char *str)
 {
     t_json json = json_parse_next(&str);
@@ -66,7 +85,6 @@ t_json json_parse(char *str)
     }
     return json;
 }
-
 
 t_json json_parse_next(char **str)
 {
