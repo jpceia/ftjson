@@ -79,7 +79,7 @@ t_json json_parse(char *str)
         return (json);
     if (*str != '\0')
     {
-        fprintf(stderr, "Parsing failled, the string is not null terminated: %s\n", str);
+        fprintf(stderr, "Parsing failed, the string is not null terminated: %s\n", str);
         json_free(json);
         return json_error();
     }
