@@ -74,22 +74,22 @@ int json_object_size(t_json_object *object)
  * @brief addback json object
  * 
  * @param object 
- * @param new 
+ * @param res 
  * @return t_json_object* 
  */
-t_json_object *json_object_append(t_json_object **object, t_json_object *new)
+t_json_object *json_object_append(t_json_object **object, t_json_object *res)
 {
     t_json_object *node = *object;
 
     if (node == NULL)
     {
-        *object = new;
-        return new;
+        *object = res;
+        return res;
     }
     while (node->next != NULL)
         node = node->next;
-    node->next = new;
-    return new;
+    node->next = res;
+    return res;
 }
 
 /**
@@ -102,11 +102,11 @@ t_json_object *json_object_append(t_json_object **object, t_json_object *new)
  */
 t_json_object *json_object_pushback(t_json_object **object, char *key, t_json value)
 {
-    t_json_object *new = json_object_new(key, value);
+    t_json_object *res = json_object_new(key, value);
 
-    if (new == NULL)
+    if (res == NULL)
         return (NULL);
-    return json_object_append(object, new);
+    return json_object_append(object, res);
 }
 
 /**
@@ -119,13 +119,13 @@ t_json_object *json_object_pushback(t_json_object **object, char *key, t_json va
  */
 t_json_object *json_object_pushfront(t_json_object **object, char *key, t_json value)
 {
-    t_json_object *new = json_object_new(key, value);
+    t_json_object *res = json_object_new(key, value);
 
-    if (new == NULL)
+    if (res == NULL)
         return (NULL);
-    new->next = *object;
-    *object = new;
-    return (new);
+    res->next = *object;
+    *object = res;
+    return (res);
 }
 
 /**

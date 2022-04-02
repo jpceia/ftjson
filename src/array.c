@@ -76,21 +76,21 @@ int json_array_size(t_json_array *array)
  */
 t_json_array *json_array_pushback(t_json_array **array, t_json value)
 {
-    t_json_array *new = json_array_new(value);
+    t_json_array *res = json_array_new(value);
 
-    if (new == NULL)
+    if (res == NULL)
         return NULL;
     if (*array == NULL)
-        *array = new;
+        *array = res;
     else
     {
         t_json_array *node = *array;
 
         while (node->next != NULL)
             node = node->next;
-        node->next = new;
+        node->next = res;
     }
-    return (new);
+    return (res);
 }
 
 /**
@@ -102,13 +102,13 @@ t_json_array *json_array_pushback(t_json_array **array, t_json value)
  */
 t_json_array *json_array_pushfront(t_json_array **array, t_json value)
 {
-    t_json_array *new = json_array_new(value);
+    t_json_array *res = json_array_new(value);
 
-    if (new == NULL)
+    if (res == NULL)
         return (NULL);
-    new->next = *array;
-    *array = new;
-    return (new);
+    res->next = *array;
+    *array = res;
+    return (res);
 }
 
 /**
