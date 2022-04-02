@@ -57,7 +57,7 @@ END_TEST
 START_TEST (parse_positive_float)
 {
     float nb = 123.45;
-    char s[12];
+    char s[14];
 
     sprintf(s, "%g", nb);
     t_json json = json_parse(s);
