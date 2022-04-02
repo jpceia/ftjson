@@ -107,7 +107,7 @@ char *file_to_string(const char *filename)
         fseek(fp, 0, SEEK_END);
         length = ftell(fp);
         fseek(fp, 0, SEEK_SET);
-        str = malloc(length);
+        str = (char *)malloc(length);
         if (str)
             (void)!fread(str, 1, length, fp);
         fclose (fp);

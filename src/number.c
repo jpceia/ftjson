@@ -15,7 +15,7 @@ t_json json_from_number(double number)
 
 char *json_number_stringify(double number)
 {
-    char *str = malloc(32);
+    char *str = (char *)malloc(32);
     
     if (str == NULL)
         return NULL;

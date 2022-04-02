@@ -28,7 +28,7 @@ t_json json_from_object(t_json_object *object)
  */
 t_json_object *json_object_new(char *key, t_json value)
 {
-    t_json_object *object = malloc(sizeof(*object));
+    t_json_object *object = (t_json_object *)malloc(sizeof(*object));
 
     if (object == NULL)
         return (NULL);
@@ -142,7 +142,7 @@ static char *json_object_stringify_key_value(t_json_object* object)
 
     if (value_str == NULL)
         return (NULL);
-    text = malloc(strlen(key) + strlen(value_str) + 5);
+    text = (char *)malloc(strlen(key) + strlen(value_str) + 5);
     if (text == NULL)
     {
         free(value_str);
@@ -169,7 +169,7 @@ char *json_object_stringify(t_json_object *object)
     int size = 2;
     int arr_size = json_object_size(object);
     
-    arr = malloc(sizeof(char *) * arr_size);
+    arr = (char **)malloc(sizeof(char *) * arr_size);
     if (arr == NULL)
         return (NULL);
     for (int i = 0; i < arr_size; ++i)
@@ -185,7 +185,7 @@ char *json_object_stringify(t_json_object *object)
     }
     if (arr_size > 0)
         size -= 2;
-    text = malloc(size + 1);
+    text = (char *)malloc(size + 1);
     if (text != NULL)
     {
         text[0] = '\0';

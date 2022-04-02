@@ -29,7 +29,7 @@ char *json_string_stringify(char *string)
 {
     char *text;
 
-    text = malloc(strlen(string) + 3);
+    text = (char *)malloc(strlen(string) + 3);
     if (text == NULL)
         return NULL;
     text[0] = '\0';
@@ -126,7 +126,7 @@ char *json_string_parse(char **str)
 
     if (**str != '"')
         return NULL;
-    text = malloc(size + 1);
+    text = (char *)malloc(size + 1);
     if (text == NULL)
         return NULL;
     ++*str;
@@ -141,7 +141,7 @@ char *json_string_parse(char **str)
         if (i > size)
         {
             size *= 2;
-            text = realloc_free_on_fail(text, size + 1);
+            text = (char *)realloc_free_on_fail(text, size + 1);
             if (text == NULL)
             {
                 perror("json_string_parse");
@@ -166,7 +166,7 @@ char *json_string_parse(char **str)
     if (i < size)
     {
         size = i;
-        text = realloc_free_on_fail(text, size + 1);
+        text = (char *)realloc_free_on_fail(text, size + 1);
         if (text == NULL)
         {
             perror("json_string_parse");

@@ -26,7 +26,7 @@ t_json json_from_array(t_json_array *array)
  */
 t_json_array *json_array_new(t_json value)
 {
-    t_json_array *array = malloc(sizeof(t_json_array));
+    t_json_array *array = (t_json_array *)malloc(sizeof(t_json_array));
     
     if (array == NULL)
         return (NULL);
@@ -142,7 +142,7 @@ char *json_array_stringify(t_json_array *array)
     }
     if (arr_size > 0)
         size -= 2; // -2 for the last comma
-    text = malloc(size + 1);
+    text = (char *)malloc(size + 1);
     if (text != NULL)
     {
         text[0] = '\0';
