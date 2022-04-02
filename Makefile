@@ -1,6 +1,6 @@
 NAME            = libjson.a
 
-INC_DIR         = headers
+INC_DIR         = inc
 
 SRC_DIR         = src
 TEST_SRC_DIR    = test_src
@@ -20,7 +20,7 @@ OS          = $(shell uname)
 
 FLAGS_WARN  = -Wall -Wextra -Werror -pedantic-errors
 FLAGS_INC   = -I$(INC_DIR)
-FLAGS_DEBUG = -ggdb3 -DDEBUG -fsanitize=address
+FLAGS_DEBUG = -ggdb3 -DDEBUG
 FLAGS_OPT   = -O3
 TESTER_LIBS = -ljson -lcheck -lz -lrt -pthread -lm -lsubunit
 
@@ -36,7 +36,7 @@ $(OBJ_DIR)/%.o:  $(SRC_DIR)/%.c
 
 $(TEST_OBJ_DIR)/%.o:  $(TEST_SRC_DIR)/%.c
 			@mkdir -p $(dir $@)
-			$(CC) -c $< -o $@ $(CFLAGS)
+			$(CC) -c $< -o $@ $(CFLAGS) $(FLAGS_DEBUG)
 
 # Linking
 $(NAME):    $(OBJS)
@@ -57,11 +57,12 @@ clean:
 
 fclean:     clean
 			$(RM) -rf $(BIN_DIR)
+			$(RM) test
 
 # Debugging build
 debug:      CFLAGS += $(FLAGS_DEBUG)
 debug:      LDFLAGS += $(FLAGS_DEBUG)
-debug:      re
+debug:      all
 
 # Rebuid
 re:         fclean all
